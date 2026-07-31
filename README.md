@@ -58,6 +58,7 @@ from transformers import AutoModelForCausalLM
 from sprucekit import SpruceCompiler
 
 model_name = "Qwen/Qwen2.5-Coder-1.5B-Instruct"
+config = CompilerConfig(feature_dim=512, candidate_blocks=4)
 compiler = SpruceCompiler.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(
     model_name,
