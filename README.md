@@ -82,6 +82,17 @@ print(result.packet.selected_blocks)
 print(result.packet.compression_fraction)
 ```
 
+The example above uses the frozen defaults, including `feature_dim=512`. On
+documents beyond roughly 32K tokens, pass a wider sketch or retrieval will fail
+silently — see [the `feature_dim` note](#how-it-works):
+
+```python
+from sprucekit import CompilerConfig, SpruceCompiler
+
+compiler = SpruceCompiler.from_pretrained(
+    model_name, config=CompilerConfig(feature_dim=4096))
+```
+
 Compilation can be used independently of model inference:
 
 ```python
@@ -116,8 +127,36 @@ radix            2
 IDF power        2.0
 ```
 
-512 is the paper's frozen value; the selector's own default is 4096,
-appropriate for longer or more repetitive sources.
+> [!IMPORTANT]
+> **`feature width 512` is a paper-frozen value, not a good default for long
+> documents.** Raise it before running the defaults above on anything past
+> roughly 32K tokens. The selector's own internal default is 4096.
+>
+> Every token hashes into one of `feature_dim` slots, and each internal tree
+> node holds the union of its children's sketches. Long or repetitive sources
+> saturate the upper levels, leaving the beam nothing to discriminate on near
+> the root, so it commits to the wrong subtree — **silently**. The compiler
+> still returns a confident, well-formed packet containing none of the
+> evidence, and the reader model will answer from whatever it was handed.
+>
+> **Rule of thumb: `feature_dim` ≳ document tokens ÷ `block_size`, rounded up
+> to a power of two.**
+>
+> Measured on one 80K-token, highly repetitive document (~1,250 blocks):
+>
+> | `feature_dim` | Outcome |
+> |---|---|
+> | 512 (paper default) | evidence missed |
+> | 1024 | evidence recovered |
+> | 4096 (selector default) | evidence recovered |
+>
+> Symptom to watch for: `result.packet.selected_blocks` clustering in one
+> region of the document instead of spanning it. That is the visible sign the
+> traversal went wrong near the root.
+>
+> Raising `feature_dim` costs a few MB of CPU RAM and linear index time. It
+> does **not** change packet size, GPU memory, latency, or compression — those
+> are governed by `candidate_blocks` and `block_size`.
 
 Index construction processes the complete source on CPU. The final model sees
 only the compact packet, so context-dependent GPU allocation stays nearly
@@ -178,6 +217,19 @@ The research archive also contains learned sparse-attention conversion,
 PyTorch/Triton kernels, residual-summary experiments, and failed ablations.
 Those are not part of the default `sprucekit` runtime and should not be
 confused with the compiler result above.
+
+## Roadmap
+
+SPRUCE is a complete, self-contained result: training-free hierarchical
+evidence compilation, measured and reported above. It requires no trained
+retriever, no selector checkpoint, and no custom attention kernel, and it is
+usable today by anything that needs a long document read under a fixed context
+budget.
+
+One direction that capability opens is an agentic coding harness working across
+large codebases within a bounded context. That work is not part of this
+release, ships nothing today, and makes no claim on the results above. Roadmap
+items describe direction, not commitments, and carry no timeline.
 
 ## Reproducibility and claims
 
