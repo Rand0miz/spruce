@@ -1,0 +1,21 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+build/
+dist/
+.coverage
+htmlcov/
+.env
+*.zip
+*.pt
+*.safetensors
+
+# Editor and agent state
+.claude/
+.vscode/
+.idea/
+*.code-workspace
+.DS_Store

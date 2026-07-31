@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+title: "SPRUCE: training-free hierarchical exact-text context compilation"
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: McDaniel
+    given-names: Myles
+repository-code: "https://github.com/Rand0miz/spruce"
+license: Apache-2.0
+version: 0.1.0
+date-released: "2026-07-30"
+keywords:
+  - long-context
+  - retrieval
+  - language-models
+  - context-compression
+abstract: >-
+  SPRUCE is a training-free hierarchical evidence compiler for long documents.
+  It locates query-relevant source regions before the language model runs,
+  expands them to paragraph boundaries, restores the exact original text in
+  source order, and hands a frozen model a compact packet to read with
+  ordinary dense attention. Measured numbers apply to the configuration,
+  model, and hardware stated with each result.
