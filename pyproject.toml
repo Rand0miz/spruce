@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "sprucekit"
-version = "0.1.0"
+version = "0.1.0rc1"
 description = "Training-free hierarchical exact-text compilation for long-context language models"
 readme = "README.md"
 requires-python = ">=3.10"

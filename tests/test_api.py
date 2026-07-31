@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from sprucekit import CompilerConfig, SpruceCompiler
+from sprucekit import CompilerConfig, SpruceCompiler, __version__
 from sprucekit.cli import main
 
 from tests.helpers import WhitespaceTokenizer
@@ -51,4 +51,4 @@ def test_cli_info_is_machine_readable(capsys):
     assert main(["info"]) == 0
     payload = json.loads(capsys.readouterr().out)
     assert payload["package"] == "sprucekit"
-    assert payload["version"] == "0.1.0"
+    assert payload["version"] == __version__
