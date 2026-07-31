@@ -1,3 +1,8 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Rand0miz/spruce/main/spruce.png"
+       alt="SPRUCE" width="480">
+</p>
+
 # SPRUCE
 
 **Sparse, Preserving, Recursive, Unified Context Extension**
