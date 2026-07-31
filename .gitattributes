@@ -1,0 +1,4 @@
+# Sealed provenance artifacts. Checked out byte-for-byte on every platform so
+# the SHA-256 recorded in RELEASE_MANIFEST.md reproduces for anyone verifying it.
+benchmarks/paper_results/** -text
+benchmarks/prompt_banks/** -text
