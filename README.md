@@ -116,6 +116,9 @@ radix            2
 IDF power        2.0
 ```
 
+512 is the paper's frozen value; the selector's own default is 4096,
+appropriate for longer or more repetitive sources.
+
 Index construction processes the complete source on CPU. The final model sees
 only the compact packet, so context-dependent GPU allocation stays nearly
 constant in the validated configuration. CPU tokenization and index memory
