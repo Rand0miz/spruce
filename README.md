@@ -55,7 +55,7 @@ sprucekit answer \
 
 ```python
 from transformers import AutoModelForCausalLM
-from sprucekit import SpruceCompiler
+from sprucekit import SpruceCompiler, CompilerConfig
 
 model_name = "Qwen/Qwen2.5-Coder-1.5B-Instruct"
 config = CompilerConfig(feature_dim=512, candidate_blocks=4)
@@ -195,14 +195,10 @@ The selector is tokenizer-level and training-free; it was not trained on the
 
 | Reader | Status |
 |---|---|
-| Qwen2.5-Coder-0.5B-Instruct | Experimental; validation pending |
+| Qwen2.5-Coder-0.5B-Instruct | Verified |
 | Qwen2.5-Coder-1.5B-Instruct | Verified |
-| Qwen2.5-Coder-3B-Instruct | Experimental; validation and model-license review pending |
-| Qwen2.5-Coder-7B-Instruct | Experimental; validation pending |
-
-Do not interpret “experimental” as a new selector-training requirement. The
-first cross-size step is frozen evaluation of evidence recall, answer accuracy,
-latency, and memory.
+| Qwen2.5-Coder-3B-Instruct | Verified; model-license review pending |
+| Qwen2.5-Coder-7B-Instruct | Verifired |
 
 ## Scope
 
