@@ -1,11 +1,9 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/Rand0miz/spruce/main/spruce.png"
-       alt="SPRUCE" width="480">
+       alt="SPRUCE" width="960">
 </p>
 
-# SPRUCE
-
-**Sparse, Preserving, Recursive, Unified Context Extension**
+**Source-Preserving, Unified, Compilation Engine**
 
 SPRUCE is a training-free hierarchical evidence compiler for long documents.
 It locates query-relevant source regions before running the language model,
@@ -17,14 +15,6 @@ The default runtime does not use model hidden states, attention matrices,
 Q/K features, a trained selector, or a sparse-attention kernel.
 
 ## Install
-
-Until the first PyPI release, install directly from GitHub:
-
-```bash
-pip install git+https://github.com/Rand0miz/spruce.git
-```
-
-After the PyPI release:
 
 ```bash
 pip install sprucekit
